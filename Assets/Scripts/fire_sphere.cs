@@ -7,12 +7,17 @@ public class fire_sphere : MonoBehaviour
     Vector3 sphere_location; //sphere location at start
     Vector3 board_location; //center of board's location at start
     //Board size is 10x10 units
-
+    [SerializeField]
+    private float timeBetweenShots = 1f;
+    [SerializeField]
+    private float nextShotTime = 2f;
+    private float time = 0f;
+    [SerializeField]
     GameObject board;
+    [SerializeField]
     GameObject soccerball;
 
     Vector3[] corner_positions;
-    int time = 0;
 
     float scale = 2.5f;
 
@@ -20,18 +25,15 @@ public class fire_sphere : MonoBehaviour
 
     void Start()
     {
+        nextShotTime += Time.time;
 
-        this.soccerball = GameObject.Find("Soccer_ball");
-        this.sphere_location = soccerball.transform.position;
+        sphere_location = soccerball.transform.position;
         
-        this.board = GameObject.Find("Plane");
-        this.board_location = board.transform.position;
+        board_location = board.transform.position;
 
-        this.corner_positions = get_corners(this.board);
+        corner_positions = get_corners(board);
 
         Rigidbody rb = soccerball.GetComponent<Rigidbody>();
-        Vector3 direction = this.ComputeRandomPosition(this.board_location, this.corner_positions) - this.sphere_location;
-        rb.velocity = new Vector3(this.scale *direction.x, this.scale *direction.y, this.scale *direction.z);
         sphere_arr = new ArrayList();
     }
 
@@ -63,17 +65,17 @@ public class fire_sphere : MonoBehaviour
         foreach( GameObject sphere in sphere_arr){
             Destroy(sphere, 0.0f);
         }
+        sphere_arr.Clear();
     }
 
     void Update()
     {
-        this.time += 1;
-
-        if(this.time%100 == 0){
-            GameObject new_SoccerBall = Instantiate(this.soccerball, this.sphere_location, Quaternion.identity);
+        if(Time.time > nextShotTime){
+            nextShotTime = Time.time + timeBetweenShots;
+            GameObject new_SoccerBall = Instantiate(soccerball, sphere_location, Quaternion.identity);
             Rigidbody rb = new_SoccerBall.GetComponent<Rigidbody>();
-            Vector3 direction = this.ComputeRandomPosition(this.board_location, this.corner_positions) - this.sphere_location;
-            rb.velocity = new Vector3(this.scale *direction.x, this.scale *direction.y, this.scale *direction.z);
+            Vector3 direction = ComputeRandomPosition(board_location, corner_positions) - sphere_location;
+            rb.velocity = new Vector3(scale *direction.x, scale *direction.y, scale *direction.z);
             sphere_arr.Add(new_SoccerBall);
         }
     }
