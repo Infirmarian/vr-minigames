@@ -13,13 +13,14 @@ public class fire_sphere : MonoBehaviour
     private float nextShotTime = 2f;
     private float time = 0f;
     [SerializeField]
-    GameObject board;
+    GameObject board, fireSpot;
     [SerializeField]
     GameObject soccerball;
 
     Vector3[] corner_positions;
 
-    float scale = 2.5f;
+[SerializeField]
+    float speed = 2.5f;
 
     ArrayList sphere_arr;
 
@@ -27,7 +28,7 @@ public class fire_sphere : MonoBehaviour
     {
         nextShotTime += Time.time;
 
-        sphere_location = soccerball.transform.position;
+        sphere_location = fireSpot.transform.position;
         
         board_location = board.transform.position;
 
@@ -75,7 +76,7 @@ public class fire_sphere : MonoBehaviour
             GameObject new_SoccerBall = Instantiate(soccerball, sphere_location, Quaternion.identity);
             Rigidbody rb = new_SoccerBall.GetComponent<Rigidbody>();
             Vector3 direction = ComputeRandomPosition(board_location, corner_positions) - sphere_location;
-            rb.velocity = new Vector3(scale *direction.x, scale *direction.y, scale *direction.z);
+            rb.velocity = new Vector3(speed *direction.x, speed *direction.y, speed *direction.z);
             sphere_arr.Add(new_SoccerBall);
         }
     }
