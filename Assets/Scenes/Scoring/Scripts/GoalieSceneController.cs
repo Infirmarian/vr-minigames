@@ -12,6 +12,8 @@ public class GoalieSceneController : MonoBehaviour
     private Text UIScore, VRScore, timer;
     [SerializeField]
     private GameObject instructions, gamecast;
+    [SerializeField]
+    private FireSphere launcher;
     private float endTime;
     private bool ended = false;
     private int player = 0;
@@ -26,11 +28,13 @@ public class GoalieSceneController : MonoBehaviour
         gamecast.SetActive(true);
         endTime = Time.time + timeLimit;
         ended = false;
+        launcher.StartFiring();
     }
 
     void EndRound()
     {
         Debug.Log("Round Ended");
+        launcher.StopFiring();
         ended = true;
         if (player < GameController.instance.numberOfPlayers - 1)
         {

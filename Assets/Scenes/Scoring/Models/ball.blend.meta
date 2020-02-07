@@ -7,22 +7,28 @@ ModelImporter:
     100002: Circle
     100004: Solid
     100006: Solid_001
+    100008: Solid.001
     400000: //RootNode
     400002: Circle
     400004: Solid
     400006: Solid_001
+    400008: Solid.001
     2100000: Material_001
     2100002: black
     2100004: white
+    2100006: Material.001
     2300000: Circle
     2300002: Solid
     2300004: Solid_001
+    2300006: Solid.001
     3300000: Circle
     3300002: Solid
     3300004: Solid_001
+    3300006: Solid.001
     4300000: Circle
     4300002: Solid_001
     4300004: Solid
+    4300006: Solid.001
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs

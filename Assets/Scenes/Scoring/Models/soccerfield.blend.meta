@@ -27,6 +27,7 @@ ModelImporter:
     100042: mesh55
     100044: mesh79
     100046: //RootNode
+    100048: Sun
     400000: Cube
     400002: cube01
     400004: cube02
@@ -51,6 +52,7 @@ ModelImporter:
     400042: mesh55
     400044: mesh79
     400046: //RootNode
+    400048: Sun
     2100000: unnamed
     2100002: material02
     2100004: material13
@@ -60,6 +62,9 @@ ModelImporter:
     2100012: material08
     2100014: material01_001
     2100016: material03
+    2100018: No Name
+    2100020: -- default --
+    2100022: material01.001
     2300000: Cube
     2300002: cube01
     2300004: cube02
@@ -131,6 +136,7 @@ ModelImporter:
     4300044: mesh157
     7400000: Default Take
     9500000: //RootNode
+    10800000: Sun
   externalObjects: {}
   materials:
     importMaterials: 1
