@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public int numberOfPlayers = 1;
     Dictionary<GameMenuController.Games, int[]> scores;
-    private static GameController instance;
+    public static GameController instance { get; private set; }
     private void Start()
     {
         if (instance == null) instance = this;

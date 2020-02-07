@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 public class GameMenuController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject splashMenu;
+    private GameObject splashMenu, selectMenu, settingsMenu;
     [SerializeField]
-    private GameObject selectMenu, leftPanel, rightPanel, centerPanel;
+    private GameObject leftPanel, rightPanel, centerPanel;
     [SerializeField]
     private Text minigameTitle;
     public enum Games
@@ -20,6 +20,7 @@ public class GameMenuController : MonoBehaviour
     private void Start()
     {
         minigameTitle.text = games[currentGame];
+        ShowSplashMenu();
     }
     public void StartMinigame()
     {
@@ -28,13 +29,21 @@ public class GameMenuController : MonoBehaviour
     }
     public void ShowSelectMenu()
     {
+        settingsMenu.SetActive(false);
         splashMenu.SetActive(false);
         selectMenu.SetActive(true);
     }
     public void ShowSplashMenu()
     {
-        splashMenu.SetActive(true);
         selectMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        splashMenu.SetActive(true);
+    }
+    public void ShowSettingsMenu()
+    {
+        splashMenu.SetActive(false);
+        selectMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
     public void CycleLeft()
     {
