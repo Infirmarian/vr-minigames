@@ -28,6 +28,8 @@ ModelImporter:
     100044: mesh79
     100046: //RootNode
     100048: Sun
+    100050: Plane
+    100052: Cube_001
     400000: Cube
     400002: cube01
     400004: cube02
@@ -53,6 +55,8 @@ ModelImporter:
     400044: mesh79
     400046: //RootNode
     400048: Sun
+    400050: Plane
+    400052: Cube_001
     2100000: unnamed
     2100002: material02
     2100004: material13
@@ -65,6 +69,8 @@ ModelImporter:
     2100018: No Name
     2100020: -- default --
     2100022: material01.001
+    2100024: steel
+    2100026: steel_002
     2300000: Cube
     2300002: cube01
     2300004: cube02
@@ -88,6 +94,8 @@ ModelImporter:
     2300040: mesh157
     2300042: mesh55
     2300044: mesh79
+    2300046: Plane
+    2300048: Cube_001
     3300000: Cube
     3300002: cube01
     3300004: cube02
@@ -111,6 +119,8 @@ ModelImporter:
     3300040: mesh157
     3300042: mesh55
     3300044: mesh79
+    3300046: Plane
+    3300048: Cube_001
     4300000: Cube
     4300002: cube10
     4300004: cube09
@@ -134,10 +144,18 @@ ModelImporter:
     4300040: mesh55
     4300042: mesh79
     4300044: mesh157
+    4300046: Plane
+    4300048: Cube_001
     7400000: Default Take
     9500000: //RootNode
     10800000: Sun
-  externalObjects: {}
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: steel_002
+    second: {fileID: 2100000, guid: cb1e08dcc9892e84996e0203f822f9c5, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -199,7 +217,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -214,10 +232,10 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

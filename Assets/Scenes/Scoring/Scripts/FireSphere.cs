@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class FireSphere : MonoBehaviour
 {
-    Vector3 sphere_location; //sphere location at start
-    Vector3 board_location; //center of board's location at start
-    //Board size is 10x10 units
     [SerializeField]
     private float timeBetweenShots = 1f;
     private float nextShotTime = 2f;
@@ -15,23 +12,16 @@ public class FireSphere : MonoBehaviour
     [SerializeField]
     GameObject soccerball;
     bool firing = false;
-    Vector3[] corner_positions;
+    private Bounds target;
 
     [SerializeField]
-    float speed = 2.5f;
+    float horizontalVelocity = 10f, velocityRange = 2f;
 
-    ArrayList sphere_arr;
+    List<GameObject> sphere_arr = new List<GameObject>();
 
     void Start()
     {
-        sphere_location = fireSpot.transform.position;
-
-        board_location = board.transform.position;
-
-        corner_positions = get_corners(board);
-
-        Rigidbody rb = soccerball.GetComponent<Rigidbody>();
-        sphere_arr = new ArrayList();
+        target = board.GetComponent<Renderer>().bounds;
     }
 
     // Start shooting (signal sent from GoalieSceneController)
@@ -47,32 +37,7 @@ public class FireSphere : MonoBehaviour
         firing = false;
     }
 
-    Vector3[] get_corners(GameObject board)
-    {
-        Vector3[] arr = new Vector3[4];
-
-        arr[0] = this.board.transform.Find("top_right_corner").position;
-        arr[1] = this.board.transform.Find("top_left_corner").position;
-        arr[2] = this.board.transform.Find("bottom_right_corner").position;
-        arr[3] = this.board.transform.Find("bottom_left_corner").position;
-
-
-        return arr;
-    }
-
-    private Vector3 ComputeRandomPosition(Vector3 board_origin, Vector3[] corner_positions)
-    {
-        float width = Mathf.Abs(corner_positions[0].y - corner_positions[2].y);
-        float height = Mathf.Abs(corner_positions[2].z - corner_positions[3].z);
-
-        float rand_y = Random.Range(board_origin.y - (width / 2), board_origin.y + (width / 2));
-        float rand_z = Random.Range(board_origin.z - (height / 2), board_origin.z + (height / 2));
-
-        Vector3 destination = new Vector3(board_origin.x, rand_y, rand_z);
-        return destination;
-    }
-
-    public void cleanup()
+    public void Cleanup()
     {
         foreach (GameObject sphere in sphere_arr)
         {
@@ -81,16 +46,35 @@ public class FireSphere : MonoBehaviour
         sphere_arr.Clear();
     }
 
+    private Vector3 ComputeRandomVelocity(Vector3 origin)
+    {
+        Vector3 goal = new Vector3(Random.Range(0f, target.size.x) + target.min.x, Random.Range(0f, target.size.y) + target.min.y, Random.Range(0f, target.size.z + target.min.z));
+        Vector3 delta = goal - origin;
+        float selectedHorizontalVelocity = horizontalVelocity + (Random.Range(0, velocityRange) - velocityRange / 2f);
+        float horizontalDistance = Mathf.Sqrt(Mathf.Pow(delta.x, 2f) + Mathf.Pow(delta.z, 2f));
+        float verticalDistance = delta.y;
+        float airTime = horizontalDistance / selectedHorizontalVelocity;
+        float fallDistance = 0.5f * Physics.gravity.y * Mathf.Pow(airTime, 2f);
+        float velocityY = (verticalDistance - fallDistance) / airTime;
+        delta = delta.normalized * selectedHorizontalVelocity;
+        delta.y = velocityY;
+        return delta;
+    }
+
+    void Fire()
+    {
+        GameObject new_SoccerBall = Instantiate(soccerball, fireSpot.transform.position, Quaternion.identity);
+        Rigidbody rb = new_SoccerBall.GetComponent<Rigidbody>();
+        rb.velocity = ComputeRandomVelocity(fireSpot.transform.position);
+        sphere_arr.Add(new_SoccerBall);
+    }
+
     void Update()
     {
         if (firing && Time.time > nextShotTime)
         {
             nextShotTime = Time.time + timeBetweenShots;
-            GameObject new_SoccerBall = Instantiate(soccerball, sphere_location, Quaternion.identity);
-            Rigidbody rb = new_SoccerBall.GetComponent<Rigidbody>();
-            Vector3 direction = ComputeRandomPosition(board_location, corner_positions) - sphere_location;
-            rb.velocity = new Vector3(speed * direction.x, speed * direction.y, speed * direction.z);
-            sphere_arr.Add(new_SoccerBall);
+            Fire();
         }
     }
 }
