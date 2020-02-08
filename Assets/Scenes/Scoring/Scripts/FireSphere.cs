@@ -15,7 +15,7 @@ public class FireSphere : MonoBehaviour
     private Bounds target;
 
     [SerializeField]
-    float horizontalVelocity = 10f, velocityRange = 2f;
+    float horizontalVelocity = 10f, velocityRange = 2f, rotationRange = 10f;
 
     List<GameObject> sphere_arr = new List<GameObject>();
 
@@ -35,13 +35,16 @@ public class FireSphere : MonoBehaviour
     public void StopFiring()
     {
         firing = false;
+        Cleanup();
     }
 
     public void Cleanup()
     {
         foreach (GameObject sphere in sphere_arr)
         {
-            Destroy(sphere, 0.0f);
+            Animator a = sphere.GetComponent<Animator>();
+            a.SetTrigger("Pop");
+            Destroy(sphere, 4f);
         }
         sphere_arr.Clear();
     }
@@ -66,6 +69,7 @@ public class FireSphere : MonoBehaviour
         GameObject new_SoccerBall = Instantiate(soccerball, fireSpot.transform.position, Quaternion.identity);
         Rigidbody rb = new_SoccerBall.GetComponent<Rigidbody>();
         rb.velocity = ComputeRandomVelocity(fireSpot.transform.position);
+        rb.angularVelocity = Random.insideUnitSphere * rotationRange;
         sphere_arr.Add(new_SoccerBall);
     }
 

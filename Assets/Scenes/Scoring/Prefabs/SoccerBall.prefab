@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 8233491272373194827}
   - component: {fileID: 1229202407668596416}
   - component: {fileID: 1499166380880554439}
+  - component: {fileID: 547614688}
+  - component: {fileID: 547614687}
   m_Layer: 0
   m_Name: SoccerBall
   m_TagString: soccerball
@@ -232,6 +234,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3b3543b384460428de3d1d91361158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!111 &547614688
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8233491272373163757}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!95 &547614687
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8233491272373163757}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c205a29e9e895554ca8ea10180ad0faa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8233491272373163759
 GameObject:
   m_ObjectHideFlags: 0

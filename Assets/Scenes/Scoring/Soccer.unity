@@ -1615,6 +1615,11 @@ PrefabInstance:
       propertyPath: horizontalVelocity
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 8583533712742653775, guid: 01254c6f82e931f47a8a8098e93a0b7a,
+        type: 3}
+      propertyPath: rotationRange
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8583533713326251472, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_Enabled
@@ -1786,7 +1791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fffb672b7024efb9f7fe37c3da6c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 20
+  timeLimit: 7
   goals: 0
   UIScore: {fileID: 532688382}
   VRScore: {fileID: 597829013}
