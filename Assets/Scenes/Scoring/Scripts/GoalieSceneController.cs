@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR;
 public class GoalieSceneController : MonoBehaviour
 {
     [SerializeField]
@@ -17,8 +18,13 @@ public class GoalieSceneController : MonoBehaviour
     private float endTime;
     private bool ended = false;
     private int player = 0;
+    private HmdQuad_t area;
     void Start()
     {
+        if(SteamVR_PlayArea.GetBounds(SteamVR_PlayArea.Size.Calibrated, ref area))
+        {
+            Debug.Log(area);
+        }
         StartRound();
     }
 

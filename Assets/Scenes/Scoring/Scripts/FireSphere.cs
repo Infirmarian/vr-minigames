@@ -5,8 +5,7 @@ using UnityEngine;
 public class FireSphere : MonoBehaviour
 {
     [SerializeField]
-    private float timeBetweenShots = 1f;
-    private float nextShotTime = 2f;
+    private float timeBetweenShots = 1f, nextShotTime = 1f;
     [SerializeField]
     GameObject board, fireSpot;
     [SerializeField]
@@ -16,11 +15,14 @@ public class FireSphere : MonoBehaviour
 
     [SerializeField]
     float horizontalVelocity = 10f, velocityRange = 2f, rotationRange = 10f;
+    [SerializeField]
+    private int numberOfShots = 0, maxSoccerballsOnScreen = 10;
 
-    List<GameObject> sphere_arr = new List<GameObject>();
+    private GameObject[] sphere_arr;
 
     void Start()
     {
+        sphere_arr = new GameObject[maxSoccerballsOnScreen];
         target = board.GetComponent<Renderer>().bounds;
     }
 
@@ -37,16 +39,20 @@ public class FireSphere : MonoBehaviour
         firing = false;
         Cleanup();
     }
-
+    private void DeleteSoccerball(GameObject g)
+    {
+        Animator a = g.GetComponent<Animator>();
+        a.SetTrigger("Pop");
+        Destroy(g, 3f);
+    }
     public void Cleanup()
     {
-        foreach (GameObject sphere in sphere_arr)
+        for(int i = 0; i<sphere_arr.Length; i++)
         {
-            Animator a = sphere.GetComponent<Animator>();
-            a.SetTrigger("Pop");
-            Destroy(sphere, 4f);
+            if(sphere_arr[i] != null)
+                DeleteSoccerball(sphere_arr[i]);
+            sphere_arr[i] = null;
         }
-        sphere_arr.Clear();
     }
 
     private Vector3 ComputeRandomVelocity(Vector3 origin)
@@ -70,7 +76,13 @@ public class FireSphere : MonoBehaviour
         Rigidbody rb = new_SoccerBall.GetComponent<Rigidbody>();
         rb.velocity = ComputeRandomVelocity(fireSpot.transform.position);
         rb.angularVelocity = Random.insideUnitSphere * rotationRange;
-        sphere_arr.Add(new_SoccerBall);
+        if(sphere_arr[numberOfShots%maxSoccerballsOnScreen] != null)
+        {
+            DeleteSoccerball(sphere_arr[numberOfShots%maxSoccerballsOnScreen]);
+        }
+        sphere_arr[numberOfShots%maxSoccerballsOnScreen] = new_SoccerBall;
+
+        numberOfShots++;
     }
 
     void Update()
