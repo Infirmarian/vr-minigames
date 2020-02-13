@@ -20,3 +20,11 @@ public class GameController : MonoBehaviour
         scores.Clear();
     }
 }
+
+
+public enum Difficulty
+{
+    EASY,
+    MEDIUM,
+    HARD
+}

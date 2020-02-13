@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1892323536}
   m_Layer: 0
-  m_Name: FireSpot
+  m_Name: FireSpotEasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,11 +24,88 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892323535}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.42, y: -1.66, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8583533712742653768}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &87731793646371514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3721243586097216375}
+  - component: {fileID: 1601898130}
+  m_Layer: 0
+  m_Name: FireSpotHard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3721243586097216375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87731793646371514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8583533712742653768}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &1601898130
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87731793646371514}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0c803952a08194008985000a28073e34, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0c803952a08194008985000a28073e34, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!1 &6625075693906608268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7708207519397861847}
+  m_Layer: 0
+  m_Name: FireSpotMedium
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7708207519397861847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625075693906608268}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.49, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8583533712742653768}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8583533712742653774
 GameObject:
@@ -60,6 +137,8 @@ Transform:
   m_Children:
   - {fileID: 8583533713326251476}
   - {fileID: 1892323536}
+  - {fileID: 7708207519397861847}
+  - {fileID: 3721243586097216375}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75,12 +154,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b19b3befd684b93b60d55e5f90e801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenShots: 1
+  easyTimeBetweenShots: 2
+  mediumTimeBetweenShots: 1.5
+  hardTimeBetweenShots: 0.9
   board: {fileID: 8583533713326251483}
-  fireSpot: {fileID: 1892323535}
+  easyFireSpot: {fileID: 1892323535}
+  mediumFireSpot: {fileID: 6625075693906608268}
+  hardFireSpot: {fileID: 87731793646371514}
   soccerball: {fileID: 8233491272373163757, guid: 27ba5ae243c3f624396bf76552e8e975,
     type: 3}
-  horizontalVelocity: 2.5
+  difficulty: 1
+  easyVelocity: 6
+  mediumVelocity: 10
+  hardVelocity: 14
+  numberOfShots: 0
+  maxSoccerballsOnScreen: 10
 --- !u!1 &8583533713326251483
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,6 +181,7 @@ GameObject:
   - component: {fileID: 8583533713326251479}
   - component: {fileID: 8583533713326251478}
   - component: {fileID: 8583533713326251472}
+  - component: {fileID: 2035081985}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -108,8 +197,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8583533713326251483}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: -20.83, y: 0.339, z: -1.611}
+  m_LocalScale: {x: 1.2554461, y: 1, z: 1.068028}
   m_Children: []
   m_Father: {fileID: 8583533712742653768}
   m_RootOrder: 0
@@ -167,8 +256,21 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8583533713326251483}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2035081985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8583533713326251483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fcfda17f8e43b4cacbb81450f21fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gsc: {fileID: 0}
