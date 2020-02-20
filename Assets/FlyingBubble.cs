@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingBubble : MonoBehaviour {
-    public float maxNumber = 0.1f;
-    public float minNumber = 0f;
-    public float randomNumber;
-    public float randomNumber2;
-    public float verticalSpeed;
-    public float horizontalSpeed;
-    public Vector3 tempPosition;
+public class FlyingBubble : MonoBehaviour
+{
+    public Rigidbody rb;
+
+    private float time = 0.0f;
+    private bool isMoving = false;
+    private bool isJumpPressed = false;
+    public float speed;
+    public int i = 1;
+
     void Start () 
     {
-        randomNumber = Random.Range(0.05f, 0.15f);
-        verticalSpeed = randomNumber;
-        tempPosition = transform.position;
+        rb = GetComponent<Rigidbody>();
+        //Set the speed of the GameObject
+        speed = 10.0f;
+        
     }
-     void FixedUpdate () 
+
+    
+     void Update () 
     {
-        tempPosition.y += verticalSpeed;
-        randomNumber2 = Random.Range(-0.1f, 0.1f);
-        horizontalSpeed = randomNumber2;
-        tempPosition.x += horizontalSpeed;
-        transform.position = tempPosition;
+        rb.velocity = new Vector3(0, 2, 0);
+        rb.AddForce(transform.forward * 100);
+        transform.Rotate(new Vector3(0, 10, 0) * Time.deltaTime * speed, Space.World);
+        
     }
 }
