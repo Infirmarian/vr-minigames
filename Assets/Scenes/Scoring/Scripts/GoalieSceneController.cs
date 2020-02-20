@@ -55,6 +55,7 @@ public class GoalieSceneController : MinigameController
     public override void ResetScene()
     {
 
+
     }
 
     // Update is called once per frame

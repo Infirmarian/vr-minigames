@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -739,7 +739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &653586435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,6 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPlayers: 1
+  difficulty: 2
 --- !u!4 &653586436
 Transform:
   m_ObjectHideFlags: 0
@@ -1538,48 +1539,44 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1601898130, guid: 01254c6f82e931f47a8a8098e93a0b7a, type: 3}
-      propertyPath: m_AnimatePhysics
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2035081985, guid: 01254c6f82e931f47a8a8098e93a0b7a, type: 3}
+    - target: {fileID: 557624487, guid: 01254c6f82e931f47a8a8098e93a0b7a, type: 3}
       propertyPath: gsc
       value: 
       objectReference: {fileID: 2037859232}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071067
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071069
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
@@ -1594,7 +1591,7 @@ PrefabInstance:
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8583533712742653768, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
@@ -1609,7 +1606,7 @@ PrefabInstance:
     - target: {fileID: 8583533712742653775, guid: 01254c6f82e931f47a8a8098e93a0b7a,
         type: 3}
       propertyPath: difficulty
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01254c6f82e931f47a8a8098e93a0b7a, type: 3}
