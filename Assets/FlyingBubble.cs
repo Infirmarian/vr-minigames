@@ -20,7 +20,7 @@ public class FlyingBubble : MonoBehaviour
 
         randomNumber1 = Random.Range(5, 10);
         randomNumber2 = Random.Range(10, 20);
-        randomNumber3 = Random.Range(1, 2);
+        randomNumber3 = Random.Range(1, 3);
 
         if (randomNumber3 % 2 == 0)
             binaryInt = 1;
