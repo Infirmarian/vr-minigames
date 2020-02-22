@@ -29,8 +29,8 @@ public class GoalieSceneController : MinigameController
             Vector3 c3 = new Vector3(area.vCorners3.v0, area.vCorners3.v1, area.vCorners3.v2);
             // Instantiate(corner, c0, Quaternion.identity);
             // Instantiate(corner, c1, Quaternion.identity);
-            float width = Mathf.Abs(c0.x, c1.x);
-            goal.transform.scale.x = width;
+            float width = Mathf.Abs(c0.x - c1.x);
+            goal.transform.localScale = new Vector3(width,  goal.transform.localScale.y, goal.transform.localScale.z);
            // Instantiate(corner, c2, Quaternion.identity);
            // Instantiate(corner, c3, Quaternion.identity);
         }
