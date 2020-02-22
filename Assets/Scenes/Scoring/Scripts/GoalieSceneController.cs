@@ -19,11 +19,23 @@ public class GoalieSceneController : MonoBehaviour
     private bool ended = false;
     private int player = 0;
     private HmdQuad_t area;
+    [SerializeField]
+    private GameObject goal;
     void Start()
     {
         if(SteamVR_PlayArea.GetBounds(SteamVR_PlayArea.Size.Calibrated, ref area))
         {
-            Debug.Log(area);
+            Debug.Log("Calibrating Area");
+            Vector3 c0 = new Vector3(area.vCorners0.v0, area.vCorners0.v1, area.vCorners0.v2);
+            Vector3 c1 = new Vector3(area.vCorners1.v0, area.vCorners1.v1, area.vCorners1.v2);
+            Vector3 c2 = new Vector3(area.vCorners2.v0, area.vCorners2.v1, area.vCorners2.v2);
+            Vector3 c3 = new Vector3(area.vCorners3.v0, area.vCorners3.v1, area.vCorners3.v2);
+            // Instantiate(corner, c0, Quaternion.identity);
+            // Instantiate(corner, c1, Quaternion.identity);
+            float width = Mathf.Abs(c0.x, c1.x);
+            goal.transform.scale.x = width;
+           // Instantiate(corner, c2, Quaternion.identity);
+           // Instantiate(corner, c3, Quaternion.identity);
         }
         StartRound();
     }
