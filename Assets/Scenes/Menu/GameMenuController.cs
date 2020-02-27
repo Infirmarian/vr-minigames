@@ -8,6 +8,10 @@ public class GameMenuController : MonoBehaviour
     [SerializeField]
     private GameObject leftPanel, rightPanel, centerPanel;
     [SerializeField]
+    private Text difficultyButton;
+    [SerializeField]
+    private Color easyColor, mediumColor, hardColor;
+    [SerializeField]
     private Text minigameTitle;
     public enum Games
     {
@@ -20,6 +24,7 @@ public class GameMenuController : MonoBehaviour
     private void Start()
     {
         minigameTitle.text = games[currentGame];
+        SwitchDifficulty();
         ShowSplashMenu();
     }
     public void StartMinigame()
@@ -63,5 +68,29 @@ public class GameMenuController : MonoBehaviour
             currentGame += 1;
         minigameTitle.text = games[currentGame];
 
+    }
+
+    public void SwitchDifficulty()
+    {
+        switch (GameController.instance.difficulty)
+        {
+            case Difficulty.EASY:
+                GameController.instance.difficulty = Difficulty.MEDIUM;
+                difficultyButton.color = mediumColor;
+                difficultyButton.text = "Medium";
+                break;
+            case Difficulty.MEDIUM:
+                GameController.instance.difficulty = Difficulty.HARD;
+                difficultyButton.color = hardColor;
+                difficultyButton.text = "Hard";
+                break;
+            case Difficulty.HARD:
+                GameController.instance.difficulty = Difficulty.EASY;
+                difficultyButton.color = easyColor;
+                difficultyButton.text = "Easy";
+                break;
+            default:
+                break;
+        }
     }
 }
