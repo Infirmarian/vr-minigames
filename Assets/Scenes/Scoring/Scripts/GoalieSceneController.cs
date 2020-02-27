@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Valve.VR;
+using Valve.VR.Extras;
 public class GoalieSceneController : MinigameController
 {
     [SerializeField]
@@ -10,14 +11,16 @@ public class GoalieSceneController : MinigameController
     [SerializeField]
     private Text UIScore, VRScore, timer;
     [SerializeField]
-    private GameObject instructions, gamecast;
+    private VRMenuController vrMenu;
     [SerializeField]
     private FireSphere launcher;
     private float endTime;
-    private bool ended = false;
+    private bool inGame = false;
     private HmdQuad_t area;
     [SerializeField]
     private GameObject goal;
+    [SerializeField]
+    private SteamVR_LaserPointer pointer;
     void Start()
     {
         if (SteamVR_PlayArea.GetBounds(SteamVR_PlayArea.Size.Calibrated, ref area))
@@ -30,27 +33,28 @@ public class GoalieSceneController : MinigameController
             // Instantiate(corner, c0, Quaternion.identity);
             // Instantiate(corner, c1, Quaternion.identity);
             float width = Mathf.Abs(c0.x - c1.x);
-            goal.transform.localScale = new Vector3(width,  goal.transform.localScale.y, goal.transform.localScale.z);
-           // Instantiate(corner, c2, Quaternion.identity);
-           // Instantiate(corner, c3, Quaternion.identity);
+            goal.transform.localScale = new Vector3(width, goal.transform.localScale.y, goal.transform.localScale.z);
+            // Instantiate(corner, c2, Quaternion.identity);
+            // Instantiate(corner, c3, Quaternion.identity);
         }
-        StartRound();
+        //        StartRound();
     }
 
     public override void StartRound()
     {
-        instructions.SetActive(false);
-        gamecast.SetActive(true);
+        pointer.active = false;
+        vrMenu.HideMenu();
         endTime = Time.time + timeLimit;
-        ended = false;
+        inGame = true;
         launcher.StartFiring();
     }
 
     public override void EndRound()
     {
         Debug.Log("Round Ended");
+        vrMenu.ShowResults();
         launcher.StopFiring();
-        ended = true;
+        inGame = false;
         if (currentPlayer < GameController.instance.numberOfPlayers - 1)
         {
             goals = 0;
@@ -74,9 +78,9 @@ public class GoalieSceneController : MinigameController
     void Update()
     {
         UIScore.text = "Goals Missed: " + goals;
-        VRScore.text = "Goals Missed: " + goals;
+        //        VRScore.text = "Goals Missed: " + goals;
         timer.text = ((int)Mathf.Max(0, endTime - Time.time)).ToString();
-        if (Time.time > endTime)
+        if (inGame && Time.time > endTime)
         {
             EndRound();
         }

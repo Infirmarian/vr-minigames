@@ -75,6 +75,11 @@ public class FireSphere : MonoBehaviour
     public void StopFiring()
     {
         firing = false;
+        Animator a = fireSpot.GetComponent<Animator>();
+        if (a != null)
+        {
+            a.SetTrigger("stop");
+        }
         Cleanup();
     }
     private void DeleteSoccerball(GameObject g)
