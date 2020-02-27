@@ -64,3 +64,4 @@ crashlytics-build.properties
 .vscode/
 .DS_Store
 *.blend1
+*.blend1.meta
