@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Valve.VR;
 using Valve.VR.Extras;
 public class GoalieSceneController : MinigameController
 {
-    [SerializeField]
+    private float[] scores;
     public int goals = 0;
     [SerializeField]
     private Text UIScore, VRScore, timer;
@@ -23,6 +24,7 @@ public class GoalieSceneController : MinigameController
     private SteamVR_LaserPointer pointer;
     void Start()
     {
+        scores = new float[GameController.instance.numberOfPlayers];
         if (SteamVR_PlayArea.GetBounds(SteamVR_PlayArea.Size.Calibrated, ref area))
         {
             Debug.Log("Calibrating Area");
@@ -39,9 +41,14 @@ public class GoalieSceneController : MinigameController
         }
         //        StartRound();
     }
-
+    // Start the round, or display the results if all players have aready gone
     public override void StartRound()
     {
+        if (currentPlayer == GameController.instance.numberOfPlayers)
+        {
+            vrMenu.ShowResults(scores);
+            return;
+        }
         pointer.active = false;
         vrMenu.HideMenu();
         endTime = Time.time + timeLimit;
@@ -51,26 +58,23 @@ public class GoalieSceneController : MinigameController
 
     public override void EndRound()
     {
-        Debug.Log("Round Ended");
-        vrMenu.ShowResults();
+        pointer.active = true;
+        scores[currentPlayer] = 1f - (float)goals / launcher.numberOfShots;
+        vrMenu.ShowIndividualResults(currentPlayer + 1, launcher.numberOfShots, scores[currentPlayer]);
         launcher.StopFiring();
         inGame = false;
-        if (currentPlayer < GameController.instance.numberOfPlayers - 1)
-        {
-            goals = 0;
-            currentPlayer++;
-            ResetScene();
-        }
-        else
-        {
-            Debug.Log("All players are done");
-            // TODO: Show results somehow and exit to menu
-        }
+        ResetScene();
+        currentPlayer++;
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("menu");
     }
 
     public override void ResetScene()
     {
-
+        goals = 0;
 
     }
 
