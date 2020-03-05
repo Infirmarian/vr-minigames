@@ -5,16 +5,26 @@ using UnityEngine;
 public class FireSphere : MonoBehaviour
 {
     [SerializeField]
-    private float timeBetweenShots = 1f, nextShotTime = 1f;
+    private float easyTimeBetweenShots, mediumTimeBetweenShots, hardTimeBetweenShots;
     [SerializeField]
-    GameObject board, fireSpot;
+    private float easyMaxSpin, mediumMaxSpin, hardMaxSpin;
+    private float maxSpin;
+    private float timeBetweenShots, nextShotTime = 1f;
     [SerializeField]
-    GameObject soccerball;
-    bool firing = false;
-    private Bounds target;
+    private GameObject easyFireSpot, mediumFireSpot, hardFireSpot;
+    private GameObject fireSpot;
+    [SerializeField]
+    private GameObject soccerball;
+    [SerializeField]
 
+    private bool firing = false;
     [SerializeField]
-    float horizontalVelocity = 10f, velocityRange = 2f, rotationRange = 10f;
+    private Collider board;
+    private Bounds target;
+    [SerializeField]
+    private float easyVelocity, mediumVelocity, hardVelocity;
+    private float velocity;
+    private float velocityRange = 2f, rotationRange = 10f;
     [SerializeField]
     private int numberOfShots = 0, maxSoccerballsOnScreen = 10;
 
@@ -22,8 +32,36 @@ public class FireSphere : MonoBehaviour
 
     void Start()
     {
+        target = board.bounds;
         sphere_arr = new GameObject[maxSoccerballsOnScreen];
-        target = board.GetComponent<Renderer>().bounds;
+        easyFireSpot.SetActive(false);
+        mediumFireSpot.SetActive(false);
+        hardFireSpot.SetActive(false);
+        switch (GameController.instance.difficulty)
+        {
+            case Difficulty.EASY:
+                fireSpot = easyFireSpot;
+                velocity = easyVelocity;
+                timeBetweenShots = easyTimeBetweenShots;
+                maxSpin = easyMaxSpin;
+                break;
+            case Difficulty.MEDIUM:
+                fireSpot = mediumFireSpot;
+                velocity = mediumVelocity;
+                timeBetweenShots = mediumTimeBetweenShots;
+                maxSpin = mediumMaxSpin;
+                break;
+            case Difficulty.HARD:
+                fireSpot = hardFireSpot;
+                velocity = hardVelocity;
+                timeBetweenShots = hardTimeBetweenShots;
+                maxSpin = hardMaxSpin;
+                break;
+            default:
+                Debug.LogError("WTF HAPPENED"); // SHOULD NEVER BE EXECUTED
+                break;
+        }
+        fireSpot.SetActive(true);
     }
 
     // Start shooting (signal sent from GoalieSceneController)
@@ -47,9 +85,9 @@ public class FireSphere : MonoBehaviour
     }
     public void Cleanup()
     {
-        for(int i = 0; i<sphere_arr.Length; i++)
+        for (int i = 0; i < sphere_arr.Length; i++)
         {
-            if(sphere_arr[i] != null)
+            if (sphere_arr[i] != null)
                 DeleteSoccerball(sphere_arr[i]);
             sphere_arr[i] = null;
         }
@@ -57,9 +95,9 @@ public class FireSphere : MonoBehaviour
 
     private Vector3 ComputeRandomVelocity(Vector3 origin)
     {
-        Vector3 goal = new Vector3(Random.Range(0f, target.size.x) + target.min.x, Random.Range(0f, target.size.y) + target.min.y, Random.Range(0f, target.size.z + target.min.z));
+        Vector3 goal = new Vector3(Random.Range(0f, target.size.x) + target.min.x, Random.Range(0f, target.size.y) + target.min.y, Random.Range(0f, target.size.z) + target.min.z);
         Vector3 delta = goal - origin;
-        float selectedHorizontalVelocity = horizontalVelocity + (Random.Range(0, velocityRange) - velocityRange / 2f);
+        float selectedHorizontalVelocity = velocity + (Random.Range(0, velocityRange) - velocityRange / 2f);
         float horizontalDistance = Mathf.Sqrt(Mathf.Pow(delta.x, 2f) + Mathf.Pow(delta.z, 2f));
         float verticalDistance = delta.y;
         float airTime = horizontalDistance / selectedHorizontalVelocity;
@@ -75,12 +113,12 @@ public class FireSphere : MonoBehaviour
         GameObject new_SoccerBall = Instantiate(soccerball, fireSpot.transform.position, Quaternion.identity);
         Rigidbody rb = new_SoccerBall.GetComponent<Rigidbody>();
         rb.velocity = ComputeRandomVelocity(fireSpot.transform.position);
-        rb.angularVelocity = Random.insideUnitSphere * rotationRange;
-        if(sphere_arr[numberOfShots%maxSoccerballsOnScreen] != null)
+        rb.angularVelocity = Vector3.up * maxSpin;
+        if (sphere_arr[numberOfShots % maxSoccerballsOnScreen] != null)
         {
-            DeleteSoccerball(sphere_arr[numberOfShots%maxSoccerballsOnScreen]);
+            DeleteSoccerball(sphere_arr[numberOfShots % maxSoccerballsOnScreen]);
         }
-        sphere_arr[numberOfShots%maxSoccerballsOnScreen] = new_SoccerBall;
+        sphere_arr[numberOfShots % maxSoccerballsOnScreen] = new_SoccerBall;
 
         numberOfShots++;
     }
