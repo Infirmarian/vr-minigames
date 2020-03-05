@@ -26,9 +26,11 @@ public class FireSphere : MonoBehaviour
     private float velocity;
     private float velocityRange = 2f, rotationRange = 10f;
     [SerializeField]
-    private int numberOfShots = 0, maxSoccerballsOnScreen = 10;
+    private int maxSoccerballsOnScreen = 10;
 
     private GameObject[] sphere_arr;
+
+    public int numberOfShots { get; private set; }
 
     void Start()
     {
@@ -68,6 +70,7 @@ public class FireSphere : MonoBehaviour
     public void StartFiring()
     {
         firing = true;
+        numberOfShots = 0;
         nextShotTime = Time.time + timeBetweenShots;
     }
 
@@ -75,6 +78,11 @@ public class FireSphere : MonoBehaviour
     public void StopFiring()
     {
         firing = false;
+        Animator a = fireSpot.GetComponent<Animator>();
+        if (a != null)
+        {
+            a.SetTrigger("stop");
+        }
         Cleanup();
     }
     private void DeleteSoccerball(GameObject g)

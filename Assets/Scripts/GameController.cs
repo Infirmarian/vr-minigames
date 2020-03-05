@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     public Difficulty difficulty;
     Dictionary<GameMenuController.Games, int[]> scores;
     public static GameController instance { get; private set; }
-    private void Start()
+    private void Awake()
     {
         if (instance != null && instance != this)
         {
